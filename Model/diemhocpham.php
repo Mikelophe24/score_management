@@ -23,13 +23,21 @@ class DiemMHP extends Database_ql_diem
 	public static function  List($text_masv)
 	{
 		$sql = "SELECT * FROM sinhvien s, lop l, monhocphan m, diemhocphan d, hocky h WHERE s.ma_sv = d.ma_sv AND s.ma_lop = l.ma_lop AND m.ma_mon = d.ma_mon AND m.ma_hk = h.ma_hk AND s.ma_sv= '$text_masv'";
-		return parent::Getdata($sql);
+		$result = parent::Getdata($sql);
+		if ($result == 0){
+			$result = [];
+		}
+    return $result;
 	}
 	// lấy ds sinh viên trong 1 lớp
 	public static function  Lop_Sinhvien($txt_malop)
 	{
 		$sql = "SELECT * FROM sinhvien,lop WHERE sinhvien.ma_lop = lop.ma_lop AND sinhvien.ma_lop='$txt_malop'";
-		return parent::Getdata($sql);
+	  $result = parent::Getdata($sql);
+		if ($result == 0){
+			$result = [];
+		}
+    return $result;
 	}
 	// lấy từng môn của từng sinh viên
 	public static function  D_M_SV($text_masv,$text_mamon)

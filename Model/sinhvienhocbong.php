@@ -22,7 +22,10 @@ class SinhvienHocbong extends Database_ql_diem
 
 	public static function  List()
 	{
-		$sql = "SELECT * FROM sinhvienhocbong a, sinhvien b WHERE a.ma_sv = b.ma_sv";
+		$sql = "SELECT * 
+FROM sinhvienhocbong a 
+left join sinhvien b ON a.ma_sv = b.ma_sv
+left join lop l ON l.ma_lop = b.ma_lop";
 		return parent::Getdata($sql);
 	}
 }

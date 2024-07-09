@@ -5,11 +5,11 @@ class Database_ql_diem
 	private static $hostname = "localhost";
 	private static $username = "root";
 	private static $password = "";
-	private static $database ="Quanlydiemcuoiky";
+	private static $database ="quanlydiemcuoiky";
 	protected static $conn = NULL;
 	
 	public static function Connect(){
-		self::$conn = mysqli_connect(self::$hostname,self::$username,self::$password,self::$database, 4306);
+		self::$conn = mysqli_connect(self::$hostname,self::$username,self::$password,self::$database, 3306);
 
 		if (!self::$conn) {
 			echo "kết nối thất bại";

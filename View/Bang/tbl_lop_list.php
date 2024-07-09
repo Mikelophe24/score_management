@@ -57,9 +57,11 @@
 
 
   <div class="col-md-6">
-    <form action="index.php" method="GET">
+    <form action="index.php?controllers=quanly&action=Search_lop" method="GET">
+      <input type="hidden" name="controllers" value="quanly">
+      <input type="hidden" name="action" value="Search_lop">
       <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Nhập mã lớp hoặc tên lớp..." name="keyword">
+        <input  type="text" class="form-control" placeholder="Nhập mã lớp hoặc tên lớp..." name="keyword">
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" type="submit">Tìm kiếm</button>
         </div>

@@ -54,7 +54,9 @@
                   <tr>
                     <th>STT</th>
                     <th>Mã SV</th>
-                    <th>lớp</th>
+                    <th>Tên SV</th>
+                    <th>Mã lớp</th>
+                    <th>Tên lớp</th>
                     <th>Hành động</th>
                   </tr>
                 </thead>
@@ -68,7 +70,9 @@
                   <tr>
                     <td><?php echo $STT; ?></td>
                     <td><?php echo $value['ma_sv']; ?></td>
+                    <td><?php echo $value['hoten_sv']; ?></td>
                     <td><?php echo $value['ma_lop']; ?></td>
+                    <td><?php echo $value['ten_lop']; ?></td>
                     <td>
                       <a onclick="return confirm('Bạn có chắc chắn muốn xóa không..?')" href="index.php?controllers=quanly&action=Hoc_bong&acplus=delete&ma_sv=<?php echo $value['ma_sv']; ?>" title="Xóa"><i class="fas fa-trash-alt"> </i></a>
                     </td>

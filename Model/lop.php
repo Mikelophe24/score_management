@@ -28,6 +28,11 @@ class Lop extends Database_ql_diem
 		$sql = "SELECT * FROM lop";
 		return parent::Getdata($sql);
 	}
+	public static function Search($keyword)
+	{
+		$sql = "SELECT * from lop WHERE ma_lop LIKE '%$keyword%' OR ten_lop LIKE '%$keyword%';";
+		return parent::Getdata($sql);
+	}
 	public static  function Lop_Sinhvien($txt_malop)
 	{
 		$sql = "SELECT sinhvien.ma_sv, sinhvien.hoten_sv FROM sinhvien,lop WHERE sinhvien.ma_lop = lop.ma_lop AND sinhvien.ma_lop='$txt_malop'";

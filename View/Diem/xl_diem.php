@@ -63,13 +63,16 @@
                                         <div class="input-group-prepend">
                                             <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
                                             Danh sách Sinh viên
+                                            
                                             </button>
                                             <div class="dropdown-menu">
-                                                <?php if (isset($list_sv)) {
+                                            <?php
+                                                if (isset($list_sv)) {
                                                     foreach ($list_sv as $value) { ?>
                                                         <a class="dropdown-item" href="index.php?controllers=diem&action=QL_Diem&maSV=<?php echo $value["ma_sv"] ."&maLop=" .$value["ma_lop"]; ?>"><?php echo $value["hoten_sv"]; ?></a>
-                                                <?php }
-                                                } ?>
+                                                    <?php }
+                                                }
+                                            ?>
                                             </div>
                                         </div>
                                     </div>
@@ -84,6 +87,7 @@
                                             <th>STT</th>
                                             <th>Mã môn</th>
                                             <th>Tên môn</th>
+                                            <th>Lần thi</th>
                                             <th>Số tín chỉ</th>
                                             <th>Điểm Giữa kỳ</th>
                                             <th>Diểm thi học kỳ</th>
@@ -112,6 +116,9 @@
                                             ]; ?></td>
                                             <td><?php echo $value[
                                                 "ten_mon"
+                                            ]; ?></td>
+                                            <td><?php echo $value[
+                                                "lanthi"
                                             ]; ?></td>
                                             <td><?php echo $value[
                                                 "sotinchi"

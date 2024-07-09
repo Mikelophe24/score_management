@@ -40,7 +40,7 @@ switch ($action) {
 			}
 			$sqlCheckUnique = 'select * from diemhocphan where ma_sv="'.$maSV.'" and ma_mon="'.$maM.'" and lanthi = '.$lanthi;
 			$dataCheckUnique = DiemMHP::Getdata($sqlCheckUnique);
-			if(is_array($dataCheckUnique) && count($dataCheckUnique) > 0){
+			if(is_array($dataCheckUnique) && count($dataCheckUnique) > 1){
 				$thatbai = "Điểm của sinh viên này đã được nhập trước đó";
 			}
 			if (DiemMHP::ADD($maSV,$maM,$txt_diemGK,$txt_diemTHK,$lanthi)) {

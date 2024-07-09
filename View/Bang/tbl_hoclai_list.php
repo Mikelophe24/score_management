@@ -72,8 +72,8 @@
                     <td><?php echo $value['ma_mon']; ?></td>
                     <td>
                     	<select class="select_trangthai">
-                    		<option <?php echo $value['trangthai'] == 1?'selected':'';  ?> value="1" data-action="/index.php?controllers=quanly&action=Thi_lai&acplus=edit&ma_sv=<?php echo $value['ma_sv']; ?>&ma_mon=<?php echo $value['ma_mon']; ?>&trangthai=1">Đã thi lại</option>
-                    		<option <?php echo $value['trangthai'] == 0?'selected':'';  ?> value="1" data-action="/index.php?controllers=quanly&action=Thi_lai&acplus=edit&ma_sv=<?php echo $value['ma_sv']; ?>&ma_mon=<?php echo $value['ma_mon']; ?>&trangthai=0">Chưa thi lại</option>
+                    		<option <?php echo $value['trangthai'] == 1?'selected':'';  ?> value="1" data-action="/<?php echo $globalUrlAlias;?>/index.php?controllers=quanly&action=Thi_lai&acplus=edit&ma_sv=<?php echo $value['ma_sv']; ?>&ma_mon=<?php echo $value['ma_mon']; ?>&trangthai=1">Đã học lại</option>
+                    		<option <?php echo $value['trangthai'] == 0?'selected':'';  ?> value="1" data-action="/<?php echo $globalUrlAlias;?>/index.php?controllers=quanly&action=Thi_lai&acplus=edit&ma_sv=<?php echo $value['ma_sv']; ?>&ma_mon=<?php echo $value['ma_mon']; ?>&trangthai=0">Chưa học lại</option>
                     	</select>
                     </td>
                     <td>

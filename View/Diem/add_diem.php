@@ -65,7 +65,7 @@
                   <div class="form-label-group">
                     <select class="form-control" id="sel3" name="sellist3">
                         <option value="1">Lần thi số 1</option>
-                        <option value="1">Lần thi số 2</option>
+                        <option value="2">Lần thi số 2</option>
                     </select>
                   </div>
                 </div>

@@ -54,9 +54,9 @@
                             <?php if(is_array($dataCheckUnique) && count($dataCheckUnique) > 0): ?>
                             <span>Đã gửi yêu cầu thi lại</span>
                             <?php else: ?>
-                            <a href="/index.php?controllers=diem&action=Thi_lai&ma_sv=<?php echo $value['ma_sv']; ?>&ma_mon=<?php echo $value['ma_mon']; ?>" class="button_ajax">Yêu cầu thi lại</a>
+                            <a href="/<?php echo $globalUrlAlias;?>/index.php?controllers=diem&action=Thi_lai&ma_sv=<?php echo $value['ma_sv']; ?>&ma_mon=<?php echo $value['ma_mon']; ?>" class="button_ajax">Yêu cầu thi lại</a>
                             <?php endif; ?>
-                        <?php elseif($diemHP < 4 && $lanthi == 2): ?>
+                        <?php elseif($diemHP < 4 && $lanthi >= 2): ?>
                             <?php 
                                 $sqlCheckUnique = 'select * from sinhvienhoclai where ma_sv="'.$value['ma_sv'].'" and ma_mon="'.$value['ma_mon'].'"';
                                 $dataCheckUnique = SinhvienThilai::Getdata($sqlCheckUnique);
@@ -64,7 +64,7 @@
                             <?php if(is_array($dataCheckUnique) && count($dataCheckUnique) > 0): ?>
                             <span>Đã gửi yêu cầu học lại</span>
                             <?php else: ?>
-                            <a href="/index.php?controllers=diem&action=Hoc_lai&ma_sv=<?php echo $value['ma_sv']; ?>&ma_mon=<?php echo $value['ma_mon']; ?>" class="button_ajax">Yêu cầu học lại</a>
+                            <a href="/<?php echo $globalUrlAlias;?>/index.php?controllers=diem&action=Hoc_lai&ma_sv=<?php echo $value['ma_sv']; ?>&ma_mon=<?php echo $value['ma_mon']; ?>" class="button_ajax">Yêu cầu học lại</a>
                             <?php endif; ?>
                         <?php endif; ?>
                     </td>
@@ -119,9 +119,9 @@
                 <td><?php if (isset($value['dan_toc'])) {
                     echo $value['dan_toc'];
                     } ?></td>
-                <?php if($tbtk >= 4): ?>
+                <?php if($tbtk >= 3.8): ?>
                 <th>Xét học bổng</th>
-                <td><a href="/index.php?controllers=diem&action=Hoc_bong&ma_sv=<?php echo $value['ma_sv']; ?>" class="button_ajax btn btn-success">Xét Học Bổng</a></td>
+                <td><a href="/<?php echo $globalUrlAlias;?>/index.php?controllers=diem&action=Hoc_bong&ma_sv=<?php echo $value['ma_sv']; ?>" class="button_ajax btn btn-success">Xét Học Bổng</a></td>
                 <?php else: ?>
                 <th></th>
                 <td></td>

@@ -1,4 +1,5 @@
 <?php
+global $globalUrlAlias;
 session_start();
 require_once 'Model/dangnhap.php';
 require_once 'Model/lop.php';
@@ -28,6 +29,13 @@ switch ($action) {
 	// xử lý lớp
 	case 'List_lop':
 		$listlop = Lop::List();
+		$time = Lop::getTime();
+		require_once 'View/Bang/tbl_lop_list.php';
+		break;
+	case 'Search_lop':
+		// var_dump()
+		$keyword = $_GET['keyword'];
+		$listlop = Lop::Search($keyword);
 		$time = Lop::getTime();
 		require_once 'View/Bang/tbl_lop_list.php';
 		break;

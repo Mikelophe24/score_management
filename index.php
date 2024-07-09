@@ -1,5 +1,7 @@
 <?php 
 require_once 'Connect/connect.php';
+include 'config.php';
+
 Database_ql_diem::Connect();
 if (isset($_GET['controllers'])) {
 	$controllers = $_GET['controllers'];
