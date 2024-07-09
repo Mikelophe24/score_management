@@ -50,6 +50,20 @@
               <div>
                 <a href="index.php?controllers=quanly&action=Add_hocphan"><button class="btn btn-primary" type="submit">Thêm mới</button></a>  
               </div>
+              <div class="row">
+              <div class="col-md-6">
+                <form action="index.php" method="GET">
+                  <input type="hidden" name="controllers" value="quanly">
+                  <input type="hidden" name="action" value="Search_hocphan">
+                  <div class="input-group mb-3">
+                    <input  type="text" class="form-control" placeholder="Nhập mã học phần hoặc tên học phần..." name="keyword">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="submit">Tìm kiếm</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              </div>
               <br/>
               <table class="table table-bordered">
                 <thead>

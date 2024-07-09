@@ -27,6 +27,15 @@ class Hocky extends Database_ql_diem
 		$sql = "SELECT * FROM hocky";
 		return parent::Getdata($sql);
 	}
+	public static function Search($keyword)
+	{
+		$sql = "SELECT * from hocky WHERE ma_hk LIKE '%$keyword%' OR ten_hk LIKE '%$keyword%';";
+		$hks =  parent::Getdata($sql);
+		if($hks == 0){
+			$hks  = [];
+		}
+		return $hks ;
+	}
 }
 
  ?>

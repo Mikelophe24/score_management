@@ -92,6 +92,13 @@ switch ($action) {
 		$listhocky = Hocky::List();
 		require_once 'View/Bang/tbl_hocky_list.php';
 		break;
+	case 'Search_hocky':
+		// var_dump()
+		$keyword = $_GET['keyword'];
+		$listhocky  = Hocky::Search($keyword);
+		require_once 'View/Bang/tbl_hocky_list.php';
+		break;
+
 	case 'Add_hocky':
 		if (isset($_POST['themHocky'])) {
 			$txt_malop = $_POST['txt_mahocky'];
@@ -144,6 +151,12 @@ switch ($action) {
 	// xử lý học phần
 	case 'list_hocphan':
 		$listhocphan = MonHP::List();
+		require_once 'View/Bang/tbl_hocphan_list.php';
+		break;
+	case 'Search_hocphan':
+		// var_dump()
+		$keyword = $_GET['keyword'];
+		$listhocphan  = MonHP::Search($keyword);
 		require_once 'View/Bang/tbl_hocphan_list.php';
 		break;
 	case 'Add_hocphan':

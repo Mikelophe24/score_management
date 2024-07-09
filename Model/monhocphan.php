@@ -28,6 +28,15 @@ class MonHP extends Database_ql_diem
 		$sql = "SELECT * FROM monhocphan";
 		return parent::Getdata($sql);
 	}
+	public static function Search($keyword)
+	{
+		$sql = "SELECT * from monhocphan WHERE ma_mon LIKE '%$keyword%' OR ten_mon LIKE '%$keyword%';";
+		$data =  parent::Getdata($sql);
+		if($data == 0){
+			$data  = [];
+		}
+		return $data ;
+	}
 }
 
  ?>
