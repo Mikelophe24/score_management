@@ -64,11 +64,12 @@ switch ($action) {
 					$text_masv = $_GET['maSV'];
 					$text_mamon = $_GET['maMon'];
 					$lanthi = $_GET['lanthi'];
-			
+					$demsolanthi = DiemMHP::DemSoLanThi($text_masv, $text_mamon);
+					var_dump($demsolanthi );
 					$list_diem_lop_sinhvien = DiemMHP::D_M_SV($text_masv, $text_mamon, $lanthi);
 			
-					if ($lanthi == 1) {
-						$thatbai = "Bạn không được phép sửa điểm ở phần thi thứ nhất.";
+					if ($demsolanthi  >=2 && $lanthi == 1) {
+						$thatbai = "Bạn không được phép sửa điểm ở phần thi thứ nhất vì đã có điểm lần sau rồi.";
 					} elseif (isset($_POST['suaDiem'])) {
 						$txt_diemGK = $_POST['txt_diemGK'];
 						$txt_diemTHK = $_POST['txt_diemTHK'];

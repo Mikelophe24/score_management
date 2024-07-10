@@ -40,6 +40,15 @@ class Database_ql_diem
 		}
 		return $arr;
 	}
+	public static function GetSingleValue($sql)
+	{
+			$result = self::Execute($sql);
+			if ($result && mysqli_num_rows($result) > 0) {
+					$row = mysqli_fetch_assoc($result);
+					return $row['count'];
+			}
+			return 0;
+	}
 	// xử lý Điểm
 	public static function H_Diem($diem)
 	{

@@ -17,7 +17,7 @@ class DiemMHP extends Database_ql_diem
 	}
 	public static function Edit($text_masv, $text_mamon, $text_diemgk, $text_diemthk, $lanthi)
 	{
-		if ($lanthi == 1) {
+		if (DiemMHP::DemSoLanThi($text_masv, $text_mamon) >=2  && $lanthi == 1) {
 			return false; // Không cho phép sửa điểm ở phần thi thứ nhất
 		}
 	
@@ -65,6 +65,15 @@ class DiemMHP extends Database_ql_diem
         INNER JOIN sinhvien s ON d.ma_sv = s.ma_sv
         WHERE d.ma_mon = '$text_mamon' AND d.ma_sv = '$text_masv' AND d.lanthi = '$lanthi'";
 		return parent::Getdata($sql);
+	}
+	public static function DemSoLanThi($text_masv, $text_mamon)
+	{
+			$sql = "SELECT COUNT(*) as count 
+							FROM diemhocphan d
+							INNER JOIN monhocphan m ON d.ma_mon = m.ma_mon
+							INNER JOIN sinhvien s ON d.ma_sv = s.ma_sv
+							WHERE d.ma_mon = '$text_mamon' AND d.ma_sv = '$text_masv'";
+			return (int) parent::GetSingleValue($sql);
 	}
 }
 

@@ -79,7 +79,7 @@
                 </div>
                 <?php } ?>
                 <input type="submit" name="suaDiem" class="btn btn-primary btn-block" value="Sửa" 
-                <?php if ($lanthi == 1) echo 'disabled="disabled"'; ?>>
+                <?php if ($demsolanthi >=2 && $lanthi == 1) echo 'disabled="disabled"'; ?>>
               </form>
             </div>
           </div>
