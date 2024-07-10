@@ -26,7 +26,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="index.php?controllers=quanly&action=Admin">Bảng điểu kiểm</a>
+            <a href="index.php?controllers=quanly&action=Admin">Bảng điều khiển</a>
           </li>
           <li class="breadcrumb-item active">Thêm điểm</li>
         </ol>
@@ -43,23 +43,28 @@
                   echo "<span style='color:green'>".($thanhcong)."</span>";
                 }
                  ?>
-                <div class="form-group">
+                 
+                 <div class="form-group">
+                  <label for="studentcode">Mã sinh viên</label>
+                  <select class="form-control" id="studentcode" name="studentcode">
+                    <?php foreach ($list_sv as $value) { ?>
+                      <option value="<?php echo $value['ma_sv']; ?>"><?php echo $value['ma_sv']; ?></option>
+                    <?php } ?>
+                  </select>
+
                   <label for="sel1">Họ và tên</label>
                   <select class="form-control" id="sel1" name="sellist1">
-                  <?php 
-                    foreach ($list_sv as $value) {
-                     ?>
-                    <option value="<?php echo $value['ma_sv']; ?>"><?php echo $value['hoten_sv']; ?></option>
-                  <?php } ?>
+                    <?php foreach ($list_sv as $value) { ?>
+                      <option value="<?php echo $value['ma_sv']; ?>"><?php echo $value['hoten_sv']; ?></option>
+                    <?php } ?>
                   </select>
                   <br>
+                  
                   <label for="sel2">Tên học phần</label>
                   <select class="form-control" id="sel2" name="sellist2">
-                    <?php 
-                    foreach ($list_hp as $value) {
-                     ?>
-                    <option value="<?php echo $value['ma_mon']; ?>"><?php echo $value['ten_mon']; ?></option>
-                  <?php } ?>
+                    <?php foreach ($list_hp as $value) { ?>
+                      <option value="<?php echo $value['ma_mon']; ?>"><?php echo $value['ten_mon']; ?></option>
+                    <?php } ?>
                   </select>
                 </div>
                 <div class="form-group">
@@ -118,6 +123,44 @@
     </div>
   </div>
 </body>
+<script>
+  // Mapping student codes to names
+  const studentMapping = <?php
+    $mapping = [];
+    foreach ($list_sv as $value) {
+      $mapping[$value['ma_sv']] = $value['hoten_sv'];
+    }
+    echo json_encode($mapping);
+  ?>;
+
+  // Invert the mapping to get names to codes mapping
+  const nameMapping = <?php
+    $inverseMapping = [];
+    foreach ($list_sv as $value) {
+      $inverseMapping[$value['hoten_sv']] = $value['ma_sv'];
+    }
+    echo json_encode($inverseMapping);
+  ?>;
+
+  // JavaScript to handle the change event
+  document.getElementById('studentcode').addEventListener('change', function() {
+    const studentCode = this.value;
+    const studentName = studentMapping[studentCode];
+    const sel1 = document.getElementById('sel1');
+
+    // Update sel1 to reflect the selected student's name
+    sel1.value = studentCode;
+  });
+
+  document.getElementById('sel1').addEventListener('change', function() {
+    const studentCode = this.value;
+    // const studentCode = nameMapping[studentName];
+    const studentcodeDropdown = document.getElementById('studentcode');
+
+    // Update studentcode to reflect the selected student's code
+    studentcodeDropdown.value = studentCode;
+  });
+</script>
 <!-- Bootstrap core JavaScript-->
 <script src="bootstraps/vendor/jquery/jquery.min.js"></script>
 <script src="bootstraps/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

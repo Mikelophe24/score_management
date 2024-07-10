@@ -35,7 +35,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="index.php?controllers=quanly&action=Admin">Bảng điểu kiểm</a>
+            <a href="index.php?controllers=quanly&action=Admin">Bảng điều khiển</a>
           </li>
           <li class="breadcrumb-item active">Sửa điểm</li>
         </ol>
