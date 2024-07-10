@@ -43,7 +43,7 @@
         <!-- DataTables Example -->
         <div class="container">
           <div class="card card-login mx-auto mt-5">
-            <div class="card-header">Sửa điểm học phần</div>
+            <div class="card-header">Sửa điểm học phần. </br>Lần thi thứ <b><?php echo $lanthi ?></b>  </div>
             <div class="card-body">
               <form action="#" method="POST">
                 <?php if (isset($thatbai)) {
@@ -78,7 +78,8 @@
                   </div>
                 </div>
                 <?php } ?>
-                <input type="submit" name="suaDiem" class="btn btn-primary btn-block" value="Sửa">
+                <input type="submit" name="suaDiem" class="btn btn-primary btn-block" value="Sửa" 
+                <?php if ($lanthi == 1) echo 'disabled="disabled"'; ?>>
               </form>
             </div>
           </div>
@@ -118,6 +119,14 @@
   </div>
 
 </body>
+<style>
+.btn:disabled {
+    background-color: grey; /* Grey background */
+    color: white; /* White text */
+    cursor: not-allowed; /* Change cursor to not-allowed */
+    border: 1px solid #ccc; /* Add a border to the button */
+}
+</style>
 <!-- Bootstrap core JavaScript-->
 <script src="bootstraps/vendor/jquery/jquery.min.js"></script>
 <script src="bootstraps/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

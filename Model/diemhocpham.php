@@ -56,9 +56,14 @@ class DiemMHP extends Database_ql_diem
     return $result;
 	}
 	// lấy từng môn của từng sinh viên
-	public static function  D_M_SV($text_masv,$text_mamon)
+	public static function  D_M_SV($text_masv,$text_mamon,$lanthi)
 	{
-		$sql = "SELECT * FROM monhocphan m, sinhvien s, diemhocphan d WHERE m.ma_mon = d.ma_mon AND d.ma_sv = s.ma_sv AND d.ma_mon = '$text_mamon' AND d.ma_sv = '$text_masv'";
+		// $sql = "SELECT * FROM monhocphan m, sinhvien s, diemhocphan d WHERE m.ma_mon = d.ma_mon AND d.ma_sv = s.ma_sv AND d.ma_mon = '$text_mamon' AND d.ma_sv = '$text_masv'";
+		$sql = "SELECT * 
+        FROM diemhocphan d
+        INNER JOIN monhocphan m ON d.ma_mon = m.ma_mon
+        INNER JOIN sinhvien s ON d.ma_sv = s.ma_sv
+        WHERE d.ma_mon = '$text_mamon' AND d.ma_sv = '$text_masv' AND d.lanthi = '$lanthi'";
 		return parent::Getdata($sql);
 	}
 }
