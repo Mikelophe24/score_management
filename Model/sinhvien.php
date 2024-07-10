@@ -29,7 +29,7 @@ class Sinhvien extends Database_ql_diem
 	}
 	public static function Edit($text_masv,$text_tensv,$text_ngaysinh,$text_gioitinh,$text_dantoc,$text_noisinh,$text_malop,$id)
 	{
-		$sql = "UPDATE sinhvien SET ma_sv='$text_masv',hoten_sv='$text_tensv',ngay_sinh='$text_ngaysinh',gioi_tinh='$text_gioitinh',dan_toc='$text_dantoc',noi_sinh='$text_noisinh',ma_lop='$text_malop' WHERE ma_sv='$id'";
+		$sql = "UPDATE sinhvien SET ma_sv='$text_masv',hoten_sv='$text_tensv',ngay_sinh='$text_ngaysinh',gioi_tinh='$text_gioitinh',dan_toc='$text_dantoc',noi_sinh='$text_noisinh',ma_lop='$text_malop' WHERE ma_sv='$text_masv'";
 		return parent::Execute($sql);
 	}
 	public static function Delete($text_masv)
