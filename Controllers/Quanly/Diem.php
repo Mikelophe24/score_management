@@ -65,7 +65,6 @@ switch ($action) {
 					$text_mamon = $_GET['maMon'];
 					$lanthi = $_GET['lanthi'];
 					$demsolanthi = DiemMHP::DemSoLanThi($text_masv, $text_mamon);
-					var_dump($demsolanthi );
 					$list_diem_lop_sinhvien = DiemMHP::D_M_SV($text_masv, $text_mamon, $lanthi);
 			
 					if ($demsolanthi  >=2 && $lanthi == 1) {
