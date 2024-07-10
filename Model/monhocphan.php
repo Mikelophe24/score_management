@@ -3,10 +3,30 @@
 require_once 'Connect/connect.php';
 class MonHP extends Database_ql_diem
 {
-	public static function ADD($txt_maHocphan,$txt_tenHocphan,$txt_stc,$txt_mahocky)
-	{
-		$sql = "INSERT INTO monhocphan(ma_mon, ten_mon, sotinchi, ma_hk) VALUES ('$txt_maHocphan','$txt_tenHocphan','$txt_stc','$txt_mahocky')";
-		return parent::Execute($sql);
+	public static function ADD($txt_maHocphan, $txt_tenHocphan, $txt_stc, $txt_mahocky) {
+		// Check if the ma_hocphan already exists
+		$checkSql = "SELECT COUNT(*) FROM monhocphan WHERE ma_mon = '$txt_maHocphan'";
+		$result = parent::Execute($checkSql);
+	
+		// Assuming Execute returns a result set, you need to fetch the result
+		$row = mysqli_fetch_row($result);
+		if ($row[0] > 0) {
+			// Duplicate found
+			return false;
+		} else {
+			// No duplicate, proceed with the insertion
+			$sql = "INSERT INTO monhocphan(ma_mon, ten_mon, sotinchi, ma_hk) VALUES ('$txt_maHocphan','$txt_tenHocphan','$txt_stc','$txt_mahocky')";
+			return parent::Execute($sql);
+		}
+	}
+
+	public static function Execute($sql) {
+		$conn = // your database connection
+		$result = mysqli_query($conn, $sql);
+		if (!$result) {
+			die('Query failed: ' . mysqli_error($conn));
+		}
+		return $result;
 	}
 	public static function id_DHP($txt_maHocphan)
 	{

@@ -26,74 +26,80 @@ switch ($action) {
 		}
 		require_once 'View/Diem/list_diem.php';
 		break;
-	case 'Add_Diem_HP':
-		$list_sv = Sinhvien::List();
-		$list_hp = MonHP::List();
-		if (isset($_POST['themDiem'])) {
-			$maSV = isset($_POST['sellist1'])?$_POST['sellist1']:'';
-			$maM = isset($_POST['sellist2'])?$_POST['sellist2']:'';
-			$lanthi = isset($_POST['sellist3'])?$_POST['sellist3']:0;
-			$txt_diemGK = isset($_POST['txt_diemGK'])?$_POST['txt_diemGK']:'';
-			$txt_diemTHK = isset($_POST['txt_diemTHK'])?$_POST['txt_diemTHK']:'';
-			if($maSV == '' || $maM == '' || $txt_diemGK == '' || $txt_diemTHK == '' || $lanthi == 0){
-				$thatbai = "Vui lòng nhập đủ thông tin";
-			}
-			$sqlCheckUnique = 'select * from diemhocphan where ma_sv="'.$maSV.'" and ma_mon="'.$maM.'" and lanthi = '.$lanthi;
-			$dataCheckUnique = DiemMHP::Getdata($sqlCheckUnique);
-			if(is_array($dataCheckUnique) && count($dataCheckUnique) > 1){
-				$thatbai = "Điểm của sinh viên này đã được nhập trước đó";
-			}
-			if (DiemMHP::ADD($maSV,$maM,$txt_diemGK,$txt_diemTHK,$lanthi)) {
-				$thanhcong = "Thêm điểm thành công";
-			}
-			else
-			{
-				$thatbai = "Thêm điểm thất bại";
-			}
-		}
-		require_once 'View/Diem/add_diem.php';
-		break;
-	case 'Edit_Diem_HP':
-		if (isset($_GET['maMon'])) {
-			$text_masv = $_GET['maSV'];
-			$text_mamon = $_GET['maMon'];
-			$list_diem_lop_sinhvien = DiemMHP::D_M_SV($text_masv,$text_mamon);
-
-			// echo "<pre>";
-			// print_r($list_diem_lop_sinhvien);
-
-			if (isset($_POST['suaDiem'])) {
-				$txt_diemGK = $_POST['txt_diemGK'];
-				$txt_diemTHK = $_POST['txt_diemTHK'];
-
-				if (DiemMHP::Edit($text_masv,$text_mamon,$txt_diemGK,$txt_diemTHK)) {
-					header('location:index.php?controllers=diem&action=QL_Diem');
+		case 'Add_Diem_HP':
+			$list_sv = Sinhvien::List();
+			$list_hp = MonHP::List();
+			if (isset($_POST['themDiem'])) {
+				$maSV = isset($_POST['sellist1']) ? $_POST['sellist1'] : '';
+				$maM = isset($_POST['sellist2']) ? $_POST['sellist2'] : '';
+				$lanthi = isset($_POST['sellist3']) ? $_POST['sellist3'] : 0;
+				$txt_diemGK = isset($_POST['txt_diemGK']) ? $_POST['txt_diemGK'] : '';
+				$txt_diemTHK = isset($_POST['txt_diemTHK']) ? $_POST['txt_diemTHK'] : '';
+				if ($maSV == '' || $maM == '' || $txt_diemGK == '' || $txt_diemTHK == '' || $lanthi == 0) {
+					$thatbai = "Vui lòng nhập đủ thông tin";
 				}
-				else
-				{
-					$thatbai = "Sửa điểm thất bại";
+				$sqlCheckUnique = 'select * from diemhocphan where ma_sv="' . $maSV . '" and ma_mon="' . $maM . '" and lanthi = ' . $lanthi;
+				$dataCheckUnique = DiemMHP::Getdata($sqlCheckUnique);
+				if (is_array($dataCheckUnique) && count($dataCheckUnique) > 1) {
+					$thatbai = "Điểm của sinh viên này đã được nhập trước đó";
+				}
+				if ($lanthi == 2) {
+					$firstAttemptScore = DiemMHP::GetFirstAttemptScore($maSV, $maM);
+					if (count($firstAttemptScore) > 0 && $firstAttemptScore[0]['diem_thi_hp'] >= 4) {
+						$thatbai = "Không thể nhập điểm lần 2 vì điểm học phần lần 1 đang >= 4";
+					}
+				}
+				if (!isset($thatbai) && DiemMHP::ADD($maSV, $maM, $txt_diemGK, $txt_diemTHK, $lanthi)) {
+					$thanhcong = "Thêm điểm thành công";
+				} else {
+					if (!isset($thatbai)) {
+						$thatbai = "Thêm điểm thất bại";
+					}
 				}
 			}
-		}
-		require_once 'View/Diem/edit_diem.php';
-		break;
-	case 'Delete_Diem_HP':
-		
-		if (isset($_GET['maMon'])) {
-			$text_masv = $_GET['maSV'];
-			$text_mamon = $_GET['maMon'];
+			require_once 'View/Diem/add_diem.php';
+			break;
+			case 'Edit_Diem_HP':
+				if (isset($_GET['maMon']) && isset($_GET['lanthi'])) {
+					$text_masv = $_GET['maSV'];
+					$text_mamon = $_GET['maMon'];
+					$lanthi = $_GET['lanthi'];
 			
-			// echo "Mã sinh viên là: ".$text_masv."<br/>";
-			// echo "Mã Môn là: ".$text_mamon."<br/>";
-			if (DiemMHP::Delete($text_masv,$text_mamon)) {
-				header('location:index.php?controllers=diem&action=QL_Diem');
+					$list_diem_lop_sinhvien = DiemMHP::D_M_SV($text_masv, $text_mamon, $lanthi);
+			
+					if ($lanthi == 1) {
+						$thatbai = "Bạn không được phép sửa điểm ở phần thi thứ nhất.";
+					} elseif (isset($_POST['suaDiem'])) {
+						$txt_diemGK = $_POST['txt_diemGK'];
+						$txt_diemTHK = $_POST['txt_diemTHK'];
+			
+						if (DiemMHP::Edit($text_masv, $text_mamon, $txt_diemGK, $txt_diemTHK, $lanthi)) {
+							header('location:index.php?controllers=diem&action=QL_Diem');
+						} else {
+							$thatbai = "Sửa điểm thất bại";
+						}
+					}
+				}
+				require_once 'View/Diem/edit_diem.php';
+				break;
+
+
+				error_reporting(E_ALL);
+		ini_set('display_errors', 1);
+
+		case 'Delete_Diem_HP':
+			if (isset($_GET['maSV']) && isset($_GET['maMon']) && isset($_GET['lanthi'])) {
+				$text_masv = $_GET['maSV'];
+				$text_mamon = $_GET['maMon'];
+				$lanthi = $_GET['lanthi'];
+		
+				if (DiemMHP::Delete($text_masv, $text_mamon, $lanthi)) {
+					header('location:index.php?controllers=diem&action=QL_Diem');
+				} else {
+					echo "Xóa thất bại";
+				}
 			}
-			else
-			{
-				echo "Xóa thất bại";
-			}
-		}
-		break;
+			break;
 	case 'QL_Diem':
 		$list_lop = Lop::List();
 		if (isset($_GET['maLop'])) {
@@ -181,7 +187,10 @@ switch ($action) {
 				$hoc_bong = 'Không đạt';
 			}
 	
-			$sv[$i] += ['STC' => $TSTC, 'TB_Toankhoa' => $TB_Toankhoa, 'XL_Toankhoa' => $XL_Toankhoa, 'hoc_bong' => $hoc_bong];
+			$sv[$i]['STC'] = $TSTC;
+			$sv[$i]['TB_Toankhoa'] = $TB_Toankhoa;
+			$sv[$i]['XL_Toankhoa'] = $XL_Toankhoa;
+			$sv[$i]['hoc_bong'] = $hoc_bong;
 		}
 	
 		require_once 'View/thongke.php';

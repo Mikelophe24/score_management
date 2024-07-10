@@ -41,10 +41,17 @@
         </ol>
 
         <!-- DataTables Example -->
+
+        <button class="btn btn-success" id="exportExcelBtn">Xuất Excel</button>
+        
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
+           
             Tất cả sinh viên</div>
+            
+
+            
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -67,28 +74,30 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php
-                    $STT = 0;
-                    foreach ($sv as $value) {
+                <?php
+                  $STT = 0;
+                  foreach ($sv as $value):
                       $STT++;
-                   ?>
-                  <tr>
-                    <td><?php echo $STT; ?></td>
-                    <td><?php echo $value['ma_sv']; ?></td>
-                    <td><?php echo $value['hoten_sv']; ?></td>
-                    <td><?php echo date('d-m-Y',strtotime($value['ngay_sinh'])); ?></td>
-                    <td><?php echo $value['gioi_tinh']; ?></td>
-                    <td><?php echo $value['dan_toc']; ?></td>
-                    <td><?php echo $value['noi_sinh']; ?></td>
-                    <td><?php echo $value['ten_lop']; ?></td>
-                    <td><?php echo $value['STC']; ?></td>
-                    <td><?php echo $value['TB_Toankhoa']; ?></td>
-                    <td><?php echo $value['XL_Toankhoa']; ?></td>
-                    <td><?php echo $value['hoc_bong']; ?></td>
-                  </tr>
-                  <?php 
-                    }
-                   ?>
+                     if ($value['XL_Toankhoa'] == 'Yếu' ):
+                  ?>
+                      <tr>
+                          <td><?php echo $STT; ?></td>
+                          <td><?php echo $value['ma_sv']; ?></td>
+                          <td><?php echo $value['hoten_sv']; ?></td>
+                          <td><?php echo date('d-m-Y', strtotime($value['ngay_sinh'])); ?></td>
+                          <td><?php echo $value['gioi_tinh']; ?></td>
+                          <td><?php echo $value['dan_toc']; ?></td>
+                          <td><?php echo $value['noi_sinh']; ?></td>
+                          <td><?php echo $value['ten_lop']; ?></td>
+                          <td><?php echo $value['STC']; ?></td>
+                          <td><?php echo $value['TB_Toankhoa']; ?></td>
+                          <td><?php echo $value['XL_Toankhoa']; ?></td>
+                          <td><?php echo $value['hoc_bong']; ?></td>
+                      </tr>
+                  <?php
+              endif;
+                  endforeach;
+                  ?>
                 </tbody>
               </table>
             </div>
@@ -109,6 +118,8 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
+ 
+
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -128,6 +139,7 @@
     </div>
   </div>
 
+
 </body>
 <!-- Bootstrap core JavaScript-->
 <script src="bootstraps/vendor/jquery/jquery.min.js"></script>
@@ -144,3 +156,26 @@
 <script src="bootstraps/js/demo/datatables-demo.js"></script>
 <script src="bootstraps/js/demo/chart-area-demo.js"></script>
 </html>
+
+
+
+
+
+<!-- Script to Handle Export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
+<script>
+  document.getElementById('exportExcelBtn').addEventListener('click', function() {
+    // Select the table
+    var table = document.getElementById('dataTable');
+    var ws = XLSX.utils.table_to_sheet(table);
+
+    // Create a new workbook and add the worksheet
+    var wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    // Save the workbook as an Excel file
+    var today = new Date();
+    var fileName = 'export_' + today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + '.xlsx';
+    XLSX.writeFile(wb, fileName);
+  });
+</script>

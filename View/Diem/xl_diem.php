@@ -137,9 +137,12 @@
                                                 "ten_hk"
                                             ]; ?></td>
                                             <td>
-                                                <a href="index.php?controllers=diem&action=Edit_Diem_HP&maSV=<?php echo $value["ma_sv"]."&maMon=" .
-                                                    $value["ma_mon"]; ?>" title="Sửa"><i class="fas fa-edit"></i> </a>
-                                                <a onclick="return confirm('Bạn có chắc chắn muốn xóa không..?')" href="index.php?controllers=diem&action=Delete_Diem_HP&maSV=<?php echo $value["ma_sv"] ."&maMon=" .$value["ma_mon"]; ?>" title="Xóa"><i class="fas fa-trash-alt"> </i></a>
+                                                <a href="index.php?controllers=diem&action=Edit_Diem_HP&maSV=<?php echo $value['ma_sv']; ?>&maMon=<?php echo $value['ma_mon']; ?>&lanthi=<?php echo $value['lanthi']; ?>" title="Sửa">
+                                                    <i class="fas fa-edit"></i> Sửa
+                                                </a>
+                                                <a onclick="return confirm('Bạn có chắc chắn muốn xóa không..?')" href="index.php?controllers=diem&action=Delete_Diem_HP&maSV=<?php echo $value['ma_sv']; ?>&maMon=<?php echo $value['ma_mon']; ?>&lanthi=<?php echo $value['lanthi']; ?>" title="Xóa">
+                                                    <i class="fas fa-trash-alt"></i> Xóa
+                                                </a>
                                             </td>
                                         </tr>
                                         <?php

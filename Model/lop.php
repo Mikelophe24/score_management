@@ -3,11 +3,22 @@
 require_once 'Connect/connect.php';
 class Lop extends Database_ql_diem
 {
-	public static function ADD($text_malop,$text_tenlop)
-	{
-		$sql = "INSERT INTO lop(ma_lop, ten_lop) VALUES ('$text_malop','$text_tenlop')";
-		return parent::Execute($sql);
-	}
+			public static function ADD($ma_lop, $ten_lop)
+		{
+			// Kiểm tra xem mã lớp đã tồn tại hay chưa
+			$check_sql = "SELECT COUNT(*) FROM lop WHERE ma_lop = '$ma_lop'";
+			$result = parent::Execute($check_sql);
+			$count = mysqli_fetch_array($result)[0];
+
+			if ($count > 0) {
+				// Mã lớp đã tồn tại, trả về thông báo lỗi
+				return "Mã lớp đã tồn tại.";
+			} else {
+				// Mã lớp không tồn tại, tiến hành thêm mới lớp
+				$sql = "INSERT INTO lop(ma_lop, ten_lop) VALUES ('$ma_lop', '$ten_lop')";
+				return parent::Execute($sql);
+			}
+		}
 	public static function List_id($text_malop)
 	{
 		$sql = "SELECT * FROM lop WHERE lop.ma_lop = '$text_malop'";

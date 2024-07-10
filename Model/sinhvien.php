@@ -38,10 +38,10 @@ class Sinhvien extends Database_ql_diem
 		return parent::Execute($sql);
 	}
 	public static function List()
-	{
-		$sql = "SELECT * FROM sinhvien AS s INNER JOIN lop AS l WHERE s.ma_lop = l.ma_lop";
-		return parent::Getdata($sql);
-	}
+		{
+			$sql = "SELECT * FROM sinhvien AS s INNER JOIN lop AS l ON s.ma_lop = l.ma_lop ";
+			return parent::Getdata($sql);
+		}
 	public static function Seach($txt_Tiemkiem)
 	{
 		$sql = "SELECT * FROM sinhvien, lop WHERE sinhvien.ma_lop = lop.ma_lop AND sinhvien.hoten_sv LIKE '%$txt_Tiemkiem%'";

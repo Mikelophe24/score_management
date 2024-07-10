@@ -12,8 +12,8 @@
                     <th>Số tín chỉ</th>
                     <th>Điểm học phần</th>
                     <th>Điểm chữ</th>
-                    <th>Hệ Điểm số</th>
-                    <th>Chức năng</th>
+                    <th>GPA</th>
+                    <th>Trạng thái </th>
                 </tr>
             </thead>
             <tbody>

@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -56,7 +57,7 @@
                           <?php } ?>
                         </select>
                         <div class="input-group-append">
-                          <button type="submit" name="Hienthi" class="btn btn-primary">Hiển thị</button>
+                          <button type="submit" name="Hienthi" class="btn-primary">Hiển thị</button>
                         </div>
                       </div>
 

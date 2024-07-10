@@ -40,20 +40,26 @@ switch ($action) {
 		require_once 'View/Bang/tbl_lop_list.php';
 		break;
 	case 'Add_lop':
-		if (isset($_POST['themLop'])) {
-			$txt_malop = $_POST['txt_malop'];
-			$txt_tenlop = $_POST['txt_tenlop'];
+    if (isset($_POST['themLop'])) {
+        $txt_malop = $_POST['txt_malop'];
+        $txt_tenlop = $_POST['txt_tenlop'];
 
-			if (Lop::ADD($txt_malop,$txt_tenlop)) {
-				header("location:index.php?controllers=quanly&action=List_lop");
-			}
-			else
-			{
-				$thatbai = "Thêm thất bại...Do mã lớp đã tồn tại!";
-			}
-		}
-		require_once 'View/Bang/tbl_lop_add.php';
-		break;
+        // Thêm điều kiện kiểm tra trùng mã lớp
+        $result = Lop::ADD($txt_malop, $txt_tenlop);
+        
+        if (is_string($result)) {
+            // Thêm thất bại vì mã lớp đã tồn tại
+            $thatbai = $result; // $result là thông báo lỗi từ phương thức ADD
+        } else {
+            // Thêm thành công, chuyển hướng về trang danh sách lớp
+            header("location:index.php?controllers=quanly&action=List_lop");
+            exit; // Đảm bảo không tiếp tục thực thi mã trong trường hợp này
+        }
+    }
+
+    require_once 'View/Bang/tbl_lop_add.php';
+    break;
+
 	case 'Edit_lop':
 		if (isset($_GET['maLop'])) {
 			$maLop = $_GET['maLop'];
@@ -99,21 +105,19 @@ switch ($action) {
 		require_once 'View/Bang/tbl_hocky_list.php';
 		break;
 
-	case 'Add_hocky':
-		if (isset($_POST['themHocky'])) {
-			$txt_malop = $_POST['txt_mahocky'];
-			$txt_tenlop = $_POST['txt_tenhocky'];
-
-			if (Hocky::ADD($txt_malop,$txt_tenlop)) {
-				header("location:index.php?controllers=quanly&action=list_hocky");
+		case 'Add_hocky':
+			if (isset($_POST['themHocky'])) {
+				$txt_malop = $_POST['txt_mahocky'];
+				$txt_tenlop = $_POST['txt_tenhocky'];
+		
+				if (Hocky::ADD($txt_malop, $txt_tenlop)) {
+					header("location:index.php?controllers=quanly&action=list_hocky");
+				} else {
+					$thatbai = "Thêm thất bại...Do mã học kỳ đã tồn tại!";
+				}
 			}
-			else
-			{
-				$thatbai = "Thêm thất bại...Do mã học kỳ đã tồn tại!";
-			}
-		}
-		require_once 'View/Bang/tbl_hocky_add.php';
-		break;
+			require_once 'View/Bang/tbl_hocky_add.php';
+			break;
 	case 'Edit_hocky':
 		if (isset($_GET['maHocky'])) {
 			$maHocky = $_GET['maHocky'];
@@ -159,29 +163,22 @@ switch ($action) {
 		$listhocphan  = MonHP::Search($keyword);
 		require_once 'View/Bang/tbl_hocphan_list.php';
 		break;
-	case 'Add_hocphan':
-		$listhocky = Hocky::List();
-		if (isset($_POST['themHocphan'])) {
-			$txt_maHocphan = $_POST['txt_maHocphan'];
-			$txt_tenHocphan = $_POST['txt_tenHocphan'];
-			$txt_stc = $_POST['txt_stc'];
-			$txt_mahocky = $_POST['sellist1'];
-
-			// echo $txt_maHocphan."<br/>";
-			// echo $txt_tenHocphan."<br/>";
-			// echo $txt_stc."<br/>";
-			// echo $txt_mahocky."<br/>";
-
-			if (MonHP::ADD($txt_maHocphan,$txt_tenHocphan,$txt_stc,$txt_mahocky)) {
-				header("location:index.php?controllers=quanly&action=list_hocphan");
+		case 'Add_hocphan':
+			$listhocky = Hocky::List();
+			if (isset($_POST['themHocphan'])) {
+				$txt_maHocphan = $_POST['txt_maHocphan'];
+				$txt_tenHocphan = $_POST['txt_tenHocphan'];
+				$txt_stc = $_POST['txt_stc'];
+				$txt_mahocky = $_POST['sellist1'];
+		
+				if (MonHP::ADD($txt_maHocphan, $txt_tenHocphan, $txt_stc, $txt_mahocky)) {
+					header("location:index.php?controllers=quanly&action=list_hocphan");
+				} else {
+					$thatbai = "Thêm thất bại...Do mã học phần đã tồn tại!";
+				}
 			}
-			else
-			{
-				$thatbai = "Thêm thất bại...Do mã học phần đã tồn tại!";
-			}
-		}
-		require_once 'View/Bang/tbl_hocphan_add.php';
-		break;
+			require_once 'View/Bang/tbl_hocphan_add.php';
+			break;	
 	case 'Edit_hocphan':
 		if (isset($_GET['maMon'])) {
 			$maMon = $_GET['maMon'];
@@ -208,6 +205,7 @@ switch ($action) {
 	case 'Delete_hocphan':
 		if (isset($_GET['maMon'])) {
 			$maMon = $_GET['maMon'];
+			
 
 			if (MonHP::Delete($maMon)) {
 				header("location:index.php?controllers=quanly&action=list_hocphan");
@@ -229,18 +227,22 @@ switch ($action) {
 			$txt_dantoc = $_POST['txt_dantoc'];
 			$txt_noisinh = $_POST['txt_noisinh'];
 			$txt_malop = $_POST['txt_malop'];
-
-			$ngaysinh = date('Y-m-d',strtotime($txt_ngaysinh));
-
-			if (Sinhvien::ADD($txt_masv,$txt_hoten,$ngaysinh,$txt_gioitinh,$txt_dantoc,$txt_noisinh,$txt_malop)) {
+	
+			$ngaysinh = date('Y-m-d', strtotime($txt_ngaysinh));
+	
+			// Thêm điều kiện kiểm tra trùng mã sinh viên
+			$result = Sinhvien::ADD($txt_masv, $txt_hoten, $ngaysinh, $txt_gioitinh, $txt_dantoc, $txt_noisinh, $txt_malop);
+			
+			if (is_string($result)) {
+				// Thêm thất bại vì mã sinh viên đã tồn tại
+				$thatbai = $result; // $result là thông báo lỗi từ phương thức ADD
+			} else {
+				// Thêm thành công, chuyển hướng về trang quản lý admin
 				header("location:index.php?controllers=quanly&action=Admin");
+				exit; // Đảm bảo không tiếp tục thực thi mã trong trường hợp này
 			}
-			else
-			{
-				$thatbai = "Thêm thất bại..!";
-			}
-
 		}
+	
 		require_once 'View/sinhvien/Add.php';
 		break;
 	case 'Edit':

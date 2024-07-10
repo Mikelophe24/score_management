@@ -13,6 +13,7 @@
   <link href="bootstraps/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
   <!-- phong cách-->
   <link href="bootstraps/css/sb-admin.css" rel="stylesheet">
+  
 </head>
 <body id="page-top">
   <!-- header -->
@@ -70,17 +71,19 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <div class="form-label-group">
-                    <input type="text" name="txt_diemGK" id="inputdiemGK" class="form-control" placeholder="Điểm giữa kỳ" required="required">
-                    <label for="inputdiemGK">Điểm giữa kỳ</label>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="form-label-group">
-                    <input type="text" name="txt_diemTHK" id="inputdiemTHK" class="form-control" placeholder="Điểm thi học kỳ" required="required">
-                    <label for="inputdiemTHK">Điểm thi học kỳ</label>
-                  </div>
-                </div>
+          <div class="form-label-group">
+              <input type="number" name="txt_diemGK" id="inputdiemGK" class="form-control" placeholder="Điểm giữa kỳ" min="0" max="10" step="0.1" required>
+              <label for="inputdiemGK">Điểm giữa kỳ</label>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="form-label-group">
+              <input type="number" name="txt_diemTHK" id="inputdiemTHK" class="form-control" placeholder="Điểm thi học kỳ" min="0" max="10" step="0.1" required>
+              <label for="inputdiemTHK">Điểm thi học kỳ </label>
+          </div>
+      </div>
+
+
                 <input type="submit" name="themDiem" class="btn btn-primary btn-block" value="Thêm">
               </form>
             </div>

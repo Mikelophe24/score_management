@@ -44,33 +44,28 @@
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-          Hiện thị bảng lớp</div>
+            Hiện thị bảng lớp
+          </div>
 
-          
           <div class="card-body">
             <div class="table-responsive">
-              <div>
-                <a href="index.php?controllers=quanly&action=Add_lop"><button class="btn btn-primary" type="submit">Thêm mới</button></a>  
+              <div class="d-flex justify-content-between mb-3">
+                <a href="index.php?controllers=quanly&action=Add_lop">
+                  <button class="btn btn-primary" type="submit">Thêm mới</button>
+                </a>
+                
+                <form action="index.php?controllers=quanly&action=Search_lop" method="GET" class="d-flex w-50">
+                  <input type="hidden" name="controllers" value="quanly">
+                  <input type="hidden" name="action" value="Search_lop">
+                  <div class="input-group flex-grow-1">
+                    <input type="text" class="form-control" placeholder="Nhập mã lớp hoặc tên lớp..." name="keyword">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="submit">Tìm kiếm</button>
+                    </div>
+                  </div>
+                </form>
               </div>
 
-              <div class="row">
-
-
-  <div class="col-md-6">
-    <form action="index.php?controllers=quanly&action=Search_lop" method="GET">
-      <input type="hidden" name="controllers" value="quanly">
-      <input type="hidden" name="action" value="Search_lop">
-      <div class="input-group mb-3">
-        <input  type="text" class="form-control" placeholder="Nhập mã lớp hoặc tên lớp..." name="keyword">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="submit">Tìm kiếm</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-
-              <br/>
               <table class="table table-bordered">
                 <thead>
                   <tr>
@@ -152,4 +147,3 @@
 <script src="bootstraps/js/demo/datatables-demo.js"></script>
 <script src="bootstraps/js/demo/chart-area-demo.js"></script>
 </html>
-

@@ -1,28 +1,44 @@
 <?php 
 
 require_once 'Connect/connect.php';
+
 class DiemMHP extends Database_ql_diem
 {
+	public static function ADD($text_masv, $text_mamon, $text_diemgk, $text_diemthk, $lanthi)
+	{
+		$sql = "INSERT INTO diemhocphan(ma_sv, ma_mon, diem_giua_ky, diem_thi_hp, lanthi) VALUES ('$text_masv', '$text_mamon', '$text_diemgk', '$text_diemthk', '$lanthi')";
+		return parent::Execute($sql);
+	}
 
-	public  static function  ADD($text_masv,$text_mamon,$text_diemgk,$text_diemthk,$lanthi)
+	public static function GetFirstAttemptScore($ma_sv, $ma_mon)
 	{
-		$sql = "INSERT INTO diemhocphan(ma_sv, ma_mon, diem_giua_ky, diem_thi_hp,lanthi) VALUES ('$text_masv','$text_mamon','$text_diemgk','$text_diemthk','$lanthi')";
+		$sql = "SELECT diem_thi_hp FROM diemhocphan WHERE ma_sv = '$ma_sv' AND ma_mon = '$ma_mon' AND lanthi = 1";
+		return parent::Getdata($sql);
+	}
+	public static function Edit($text_masv, $text_mamon, $text_diemgk, $text_diemthk, $lanthi)
+	{
+		if ($lanthi == 1) {
+			return false; // Không cho phép sửa điểm ở phần thi thứ nhất
+		}
+	
+		$sql = "UPDATE diemhocphan SET diem_giua_ky='$text_diemgk', diem_thi_hp='$text_diemthk' WHERE ma_sv='$text_masv' AND ma_mon='$text_mamon' AND lanthi=$lanthi";
 		return parent::Execute($sql);
 	}
-	public static function  Edit($text_masv,$text_mamon,$text_diemgk,$text_diemthk)
+		public static function Delete($text_masv, $text_mamon, $lanthi)
 	{
-		$sql = "UPDATE diemhocphan SET ma_sv='$text_masv',ma_mon='$text_mamon',diem_giua_ky='$text_diemgk',diem_thi_hp='$text_diemthk' WHERE diemhocphan.ma_sv = '$text_masv' AND diemhocphan.ma_mon='$text_mamon'";
-		return parent::Execute($sql);
-	}
-	public static function  Delete($text_masv,$text_mamon)
-	{
-		$sql = "DELETE FROM diemhocphan WHERE diemhocphan.ma_sv = '$text_masv' AND diemhocphan.ma_mon='$text_mamon'";
+		$sql = "DELETE FROM diemhocphan WHERE ma_sv = '$text_masv' AND ma_mon = '$text_mamon' AND lanthi = $lanthi";
 		return parent::Execute($sql);
 	}
 	// lấy tất cả môn cho từng sinh viên 
 	public static function  List($text_masv)
 	{
-		$sql = "SELECT * FROM sinhvien s, lop l, monhocphan m, diemhocphan d, hocky h WHERE s.ma_sv = d.ma_sv AND s.ma_lop = l.ma_lop AND m.ma_mon = d.ma_mon AND m.ma_hk = h.ma_hk AND s.ma_sv= '$text_masv'";
+		$sql = "SELECT * FROM sinhvien s, lop l, monhocphan m, diemhocphan d, hocky h 
+            WHERE s.ma_sv = d.ma_sv 
+            AND s.ma_lop = l.ma_lop 
+            AND m.ma_mon = d.ma_mon 
+            AND m.ma_hk = h.ma_hk 
+            AND s.ma_sv = '$text_masv'";
+
 		$result = parent::Getdata($sql);
 		if ($result == 0){
 			$result = [];

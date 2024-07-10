@@ -54,33 +54,44 @@
                   <tr>
                     <th>STT</th>
                     <th>Mã SV</th>
+                    <th>Họ tên SV</th>
                     <th>Mã Môn</th>
                     <th>Trang thái</th>
                     <th>Hành động</th>
                   </tr>
                 </thead>
+
+                <div class="card-footer">
+                <!-- Export Excel Button -->
+                <button class="btn btn-success" id="exportExcelBtn">Xuất Excel</button>
+              </div>
+                
                 <tbody>
                 	<?php if(is_array($list_sv) && count($list_sv) > 0): ?>
                   <?php 
                   $STT = 0;
                   foreach ($list_sv as $value) {
                     $STT++;
+                    if($value['trangthai'] == 0):
                    ?>
                   <tr>
                     <td><?php echo $STT; ?></td>
                     <td><?php echo $value['ma_sv']; ?></td>
+                    <td><?php echo $value['hoten_sv']; ?></td>
                     <td><?php echo $value['ma_mon']; ?></td>
                     <td>
-                    	<select class="select_trangthai">
-                    		<option <?php echo $value['trangthai'] == 1?'selected':'';  ?> value="1" data-action="/<?php echo $globalUrlAlias;?>/index.php?controllers=quanly&action=Thi_lai&acplus=edit&ma_sv=<?php echo $value['ma_sv']; ?>&ma_mon=<?php echo $value['ma_mon']; ?>&trangthai=1">Đã học lại</option>
-                    		<option <?php echo $value['trangthai'] == 0?'selected':'';  ?> value="1" data-action="/<?php echo $globalUrlAlias;?>/index.php?controllers=quanly&action=Thi_lai&acplus=edit&ma_sv=<?php echo $value['ma_sv']; ?>&ma_mon=<?php echo $value['ma_mon']; ?>&trangthai=0">Chưa học lại</option>
-                    	</select>
-                    </td>
+                  <select class="select_trangthai">
+                      <option <?php echo $value['trangthai'] == 1 ? 'selected' : ''; ?> value="1" data-action="/<?php echo $globalUrlAlias;?>/index.php?controllers=quanly&action=Hoc_lai&acplus=edit&ma_sv=<?php echo $value['ma_sv']; ?>&ma_mon=<?php echo $value['ma_mon']; ?>&trangthai=1">Đã học lại</option>
+                      <option <?php echo $value['trangthai'] == 0 ? 'selected' : ''; ?> value="0" data-action="/<?php echo $globalUrlAlias;?>/index.php?controllers=quanly&action=Hoc_lai&acplus=edit&ma_sv=<?php echo $value['ma_sv']; ?>&ma_mon=<?php echo $value['ma_mon']; ?>&trangthai=0">Chưa học lại</option>
+                  </select>
+              </td>
                     <td>
                       <a onclick="return confirm('Bạn có chắc chắn muốn xóa không..?')" href="index.php?controllers=quanly&action=Hoc_lai&acplus=delete&ma_sv=<?php echo $value['ma_sv']; ?>&ma_mon=<?php echo $value['ma_mon']; ?>" title="Xóa"><i class="fas fa-trash-alt"> </i></a>
                     </td>
                   </tr>
-                <?php } ?>
+                <?php  endif;
+                  }
+              ?>
                 	<?php else: ?>
                 		<tr>
                     		<td colspan="100%">Chưa có dữ liệu!</td>
@@ -122,6 +133,33 @@
       </div>
     </div>
   </div>
+
+      <!-- JavaScript để xuất Excel -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('exportExcelBtn').addEventListener('click', function() {
+      // Select the table
+      var table = document.querySelector('.table');
+
+      // Clone the table and remove the column "Trạng thái" (index 4)
+      var clonedTable = table.cloneNode(true);
+      var rows = clonedTable.getElementsByTagName('tr');
+      for (var i = 0; i < rows.length; i++) {
+        rows[i].deleteCell(4); // Remove cell at index 4 (Trạng thái column)
+      }
+
+      // Convert the cloned table to a workbook
+      var wb = XLSX.utils.table_to_book(clonedTable, { sheet: "Sheet JS" });
+
+      // Save the workbook as an Excel file
+      var today = new Date();
+      var fileName = 'export_' + today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + '.xlsx';
+      XLSX.writeFile(wb, fileName);
+    });
+  });
+</script>
+
 
 </body>
 <!-- Bootstrap core JavaScript-->

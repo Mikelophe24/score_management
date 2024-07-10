@@ -23,11 +23,13 @@ class SinhvienHocbong extends Database_ql_diem
 	public static function  List()
 	{
 		$sql = "SELECT * 
-FROM sinhvienhocbong a 
-left join sinhvien b ON a.ma_sv = b.ma_sv
-left join lop l ON l.ma_lop = b.ma_lop";
-		return parent::Getdata($sql);
-	}
+            FROM sinhvienhocbong a 
+            LEFT JOIN sinhvien b ON a.ma_sv = b.ma_sv
+            LEFT JOIN lop l ON l.ma_lop = b.ma_lop
+           ";
+    
+				return parent::Getdata($sql);
+			}
 }
 
  ?>

@@ -1,2 +1,2 @@
 <?php
-$globalUrlAlias = "score_management";
+$globalUrlAlias = "Quanlydiemcuoiky";

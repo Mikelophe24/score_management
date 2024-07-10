@@ -44,25 +44,25 @@
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-          Hiện thị bảng học kỳ</div>
+            Hiện thị bảng học kỳ
+          </div>
           <div class="card-body">
             <div class="table-responsive">
-              <div>
-                <a href="index.php?controllers=quanly&action=Add_hocky"><button class="btn btn-primary" type="submit">Thêm mới</button></a>  
-              </div>
-              <div class="row">
-              <div class="col-md-6">
-                <form action="index.php" method="GET">
+              <div class="d-flex justify-content-between mb-3">
+                <a href="index.php?controllers=quanly&action=Add_hocky">
+                  <button class="btn btn-primary" type="submit">Thêm mới</button>
+                </a>  
+                
+                <form action="index.php" method="GET" class="d-flex w-50">
                   <input type="hidden" name="controllers" value="quanly">
                   <input type="hidden" name="action" value="Search_hocky">
-                  <div class="input-group mb-3">
-                    <input  type="text" class="form-control" placeholder="Nhập mã học kỳ hoặc tên học kỳ..." name="keyword">
+                  <div class="input-group flex-grow-1">
+                    <input type="text" class="form-control" placeholder="Nhập mã học kỳ hoặc tên học kỳ..." name="keyword">
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary" type="submit">Tìm kiếm</button>
                     </div>
                   </div>
                 </form>
-              </div>
               </div>
               <br/>
               <table class="table table-bordered">
